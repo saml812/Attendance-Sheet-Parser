@@ -5,6 +5,7 @@ from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.ai.documentintelligence.models import AnalyzeResult, AnalyzeDocumentRequest
 import json
 import csv
+import argparse
 
 # set `<your-endpoint>` and `<your-key>` variables with the values from the Azure portal
 credentials = json.load(open("credentials.json"))
@@ -17,59 +18,22 @@ def analyze_layout(file_path):
         credential=AzureKeyCredential(key)
     )
 
-    path_to_document = "images/index.pdf"
+    path_to_document = file_path
     with open(path_to_document, "rb") as f:
         poller = client.begin_analyze_document(
             "prebuilt-layout", analyze_request=f, content_type="application/octet-stream"
         )
-
     result: AnalyzeResult = poller.result() 
-
-    if result.styles and any([style.is_handwritten for style in result.styles]):
-        print("Document contains handwritten content")
-    else:
-        print("Document does not contain handwritten content")
     
     data = []
     for page in result.pages:
         print(f"----Analyzing layout from page #{page.page_number}----")
-        print(f"Page has width: {page.width} and height: {page.height}, measured with unit: {page.unit}")
-
-        # if page.lines:
-        #     for line_idx, line in enumerate(page.lines):
-        #         words = get_words(page, line)
-        #         print(
-        #             f"...Line # {line_idx} has word count {len(words)} and text '{line.content}' "
-        #             f"within bounding polygon '{line.polygon}'"
-        #         )
-
-        #         for word in words:
-        #             print(f"......Word '{word.content}' has a confidence of {word.confidence}")
-
-        # if page.selection_marks:
-        #     for selection_mark in page.selection_marks:
-        #         print(
-        #             f"Selection mark is '{selection_mark.state}' within bounding polygon "
-        #             f"'{selection_mark.polygon}' and has a confidence of {selection_mark.confidence}"
-        #         )
-
     if result.tables:
         for table_idx, table in enumerate(result.tables):
-            # print(f"Table # {table_idx} has {table.row_count} rows and " f"{table.column_count} columns")
-            # if table.bounding_regions:
-            #     for region in table.bounding_regions:
-            #         print(f"Table # {table_idx} location on page: {region.page_number} is {region.polygon}")
             for cell in table.cells:
-                
                 if cell.column_index != 1 and cell.content != "":
                     #print(cell.content)
                     data.append(cell.content)
-                # print(f"...Cell[{cell.row_index}][{cell.column_index}] has text '{cell.content}'")
-                # if cell.bounding_regions:
-                #     for region in cell.bounding_regions:
-                #         print(f"...content on page {region.page_number} is within bounding polygon '{region.polygon}'")
-
-    print("----------------------------------------")
     return data
 
 #Create csv file
@@ -98,10 +62,12 @@ def data_to_csv(data, hours, filename):
 
     return filename
 
-file = "images/index.pdf"
-data = analyze_layout(file)
-data_to_csv(data, 3, "event_date.csv")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='PDF to CSV')
+    parser.add_argument('--file', type=str, required=True, help='Path to the document (PDF) file')
+    parser.add_argument('--hours', type=int, required=True, help='Number of hours to include in the CSV')
+    parser.add_argument('--output', type=str, required=True, help='Output CSV filename')
+    args = parser.parse_args()
 
-# if __name__ == "__main__":
-#     data = analyze_layout("images/index.pdf")
-#     data_to_csv(data, 3, "event_date.csv")
+    data = analyze_layout(args.file)
+    data_to_csv(data, args.hours, args.output)
