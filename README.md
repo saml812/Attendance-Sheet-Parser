@@ -1,4 +1,4 @@
-[event_date.csv](https://github.com/user-attachments/files/16634789/event_date.csv)﻿# Volunteer Attendance Sheet Automation
+# Volunteer Attendance Sheet Parser
 
 A Python program designed to analyze the layout of a document using Azure's Document Intelligence API, extract table data such as Names and IDs, and save the extracted data into a CSV file with additional information such as hours.
 
@@ -58,16 +58,11 @@ Command-Line Arguments
 --output: The name of the output CSV file.
 ```
 ## Example
-Given the following pdf
-[index.pdf](https://github.com/user-attachments/files/16634780/index.pdf)
 
-The following CSV file is created
-[UploaNAME,ID,HOURS
-Sam Baker,1234,3
-Test One,4931,3
-Test Two,1,3
-Kyle Swam,3749,3
-ding event_date.csv…]()
+## License
+
+
+
 
 
 
