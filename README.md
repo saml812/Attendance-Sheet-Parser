@@ -58,9 +58,15 @@ Command-Line Arguments
 ```
 ## Example
 
-![Example Attendence Sheet][https://github.com/saml812/Attendance-Sheet-Parser/blob/main/documents/index.pdf]
-![Converted CSV][https://github.com/saml812/Attendance-Sheet-Parser/blob/main/event_date.csv]
+### PDF Preview
+You can view the original attendance sheet document below:
 
+<iframe src="https://github.com/saml812/Attendance-Sheet-Parser/blob/main/documents/index.pdf" width="100%" height="600px"></iframe>
+
+### CSV Preview
+You can view the generated CSV file below:
+
+<iframe src="https://github.com/saml812/Attendance-Sheet-Parser/blob/main/event_date.csv" width="100%" height="400px"></iframe>
 
 
 
