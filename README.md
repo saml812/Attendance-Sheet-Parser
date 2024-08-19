@@ -58,7 +58,10 @@ Command-Line Arguments
 ```
 ## Example
 
-## License
+![Example Attendence Sheet][https://github.com/saml812/Attendance-Sheet-Parser/blob/main/documents/index.pdf]
+![Converted CSV][https://github.com/saml812/Attendance-Sheet-Parser/blob/main/event_date.csv]
+
+
 
 
 
