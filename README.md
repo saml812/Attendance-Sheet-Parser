@@ -59,14 +59,12 @@ Command-Line Arguments
 ## Example
 
 ### PDF Preview
-You can view the original attendance sheet document below:
+You can view the original attendance sheet document here:
 [Sheet](https://github.com/saml812/Attendance-Sheet-Parser/blob/main/documents/index.pdf)
-
 
 ### CSV Preview
 You can view the generated CSV file below:
-
-<iframe src="https://github.com/saml812/Attendance-Sheet-Parser/blob/main/event_date.csv" width="100%" height="400px"></iframe>
+[Table](https://github.com/saml812/Attendance-Sheet-Parser/blob/main/event_date.csv)
 
 
 
